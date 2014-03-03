@@ -872,14 +872,18 @@ public class Tools {
 
 	public static byte[] hexStringToByte(String hexString)
 	{  
+		hexString = hexString.toLowerCase();
+		if(hexString.length() % 2 != 0){
+			hexString = "0" + hexString;
+		}
 		int len = (hexString.length() / 2);  
 		byte[] result = new byte[len];  
 		char[] achar = hexString.toCharArray();  
-		for (int i = 0; i < len; i++) {  
+		for (int i = 0; i <len; i++) {  
 			int pos = i * 2;  
-			result[i] = (byte) ("0123456789ABCDEF".indexOf(achar[pos]) << 4 | "0123456789ABCDEF".indexOf(achar[pos + 1]));  
+			result[len - i -1] = (byte) ("0123456789abcdef".indexOf(achar[pos]) << 4 | "0123456789abcdef".indexOf(achar[pos + 1]));  
 		}  
-		return result;  
+		return result;   
 	}
 	
 	public static byte[]  ascIIStringToByte(String ascIIString)
