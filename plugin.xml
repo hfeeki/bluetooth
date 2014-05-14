@@ -38,7 +38,7 @@
 		<source-file src="src/android/org/bcsphere/bluetooth/IBluetooth.java" target-dir="src/org/bcsphere/bluetooth" />
 		<source-file src="src/android/org/bcsphere/bluetooth/BluetoothG43plus.java" target-dir="src/org/bcsphere/bluetooth" />
 		<source-file src="src/android/org/bcsphere/bluetooth/BluetoothSam42.java" target-dir="src/org/bcsphere/bluetooth" />
-		<source-file src="src/android/org/bcsphere/bluetooth/BluetoothHTC41.java" target-dir="src/org/bcsphere/bluetooth" />
+		<!--source-file src="src/android/org/bcsphere/bluetooth/BluetoothHTC41.java" target-dir="src/org/bcsphere/bluetooth" / -->
 		<source-file src="src/android/org/bcsphere/bluetooth/tools/BluetoothDetection.java" target-dir="src/org/bcsphere/bluetooth/tools" />
 		<source-file src="src/android/org/bcsphere/bluetooth/tools/Tools.java" target-dir="src/org/bcsphere/bluetooth/tools" />
 		
@@ -46,7 +46,7 @@
 		<source-file src="src/underscore.js" target-dir="assets/www" />
 		
 		<source-file src="libs/samsung_ble_sdk_200.jar" target-dir="libs" />
-		<source-file src="libs/com.htc.android.bluetooth.le.jar" target-dir="com.htc.android.bluetooth.le" />
+		<!-- source-file src="libs/com.htc.android.bluetooth.le.jar" target-dir="com.htc.android.bluetooth.le" / -->
     </platform>
    
 
