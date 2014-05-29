@@ -455,7 +455,8 @@
 			this.getDeviceAllData = function(device){
 				//bind "this" pointer in case of rewrite by js context.
 				var processDeviceAllData = device.processDeviceAllData.bind(device,device.processDeviceAllData);
-				navigator.bluetooth.getDeviceAllData(processDeviceAllData,testFunc,device.deviceAddress);
+				var getAllDataError = device.getAllDataError.bind(device,device.getAllDataError);
+				navigator.bluetooth.getDeviceAllData(processDeviceAllData,getAllDataError,device.deviceAddress);
 			};
 		
 			this.connect = function(device){
@@ -1166,6 +1167,7 @@
 			this.softwareRevision = null;
 			this.manufacturerName = null;
 			this.RSSI = arg.RSSI;
+			this.isDiscovering = false;
 			this.advTimestamp = new Date().getTime();
 			this.type = arg.type;
 			if(!BC.Tools.IsEmpty(this.deviceInitialize)){
@@ -1229,7 +1231,10 @@
 				this.error("device is not connected!please call device.connect() first!");
 				return;
 			}
-			BC.bluetooth.getDeviceAllData(this);
+			if(!this.isDiscovering){
+			  this.isDiscovering = true;
+			  BC.bluetooth.getDeviceAllData(this);
+		    }
 		},
 		
 		/**
@@ -1244,7 +1249,10 @@
 			this.success = success;
 			this.error = error;
 			if(this.services == undefined || this.services == null || this.services.length==0){
-			    BC.bluetooth.discoverServices(this);
+			    if(!this.isDiscovering){
+			        this.isDiscovering = true;
+			        BC.bluetooth.discoverServices(this);
+			    }
 			}else{
 			    this.success();
 			}
@@ -1253,6 +1261,7 @@
 		discoverServicesSuccess : function(){
 			var rawObj = arguments[1];
             var device = this;
+            this.isDiscovering = false;
             this.services = [];
             _.each(rawObj.services, function(service){
                     var sindex = service.serviceIndex;
@@ -1272,12 +1281,14 @@
 		},
 		
 		discoverServicesError : function(){
+			this.isDiscovering = false;
 			this.error();
 		},
 		
 		processDeviceAllData : function(){
 			var rawObj = arguments[1];
 			var device = this;
+			this.isDiscovering = false;
 			this.services = [];
 			_.each(rawObj.services, function(service){
 					var sindex = service.serviceIndex;
@@ -1291,6 +1302,13 @@
 			if(this.success !== null){
 				this.success();
 			}
+		},
+
+		getAllDataError : function(){
+		  this.isDiscovering = false;
+		  if(this.error !== null){
+		      this.error();
+		  }
 		},
 		
 		/**
