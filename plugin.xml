@@ -51,7 +51,13 @@
     </js-module>
 	<js-module src="www/org.bluetooth.service/tx_power.js" name="bluetooth.service.tx_power">
         <merges target="BC" />
+    </js-module>
+	<js-module src="www/org.bcsphere.ibeacon/ibeaconapi.js" name="bcsphere.ibeacon.ibeaconapi">
+        <merges target="navigator.ibeacon" />
     </js-module>	
+	<js-module src="www/org.bcsphere/ibeacon.js" name="bcsphere.ibeacon">
+        <merges target="BC" />
+    </js-module>		
 	
     <!-- android -->
     <platform name="android">
