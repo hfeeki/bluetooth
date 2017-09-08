@@ -176,7 +176,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line38">line 38</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line37">line 37</a>
     </li></ul></dd>
     
     
@@ -202,6 +202,90 @@
         <h3 class="subsection-title">Events</h3>
         
         <dl>
+            
+<dt>
+    <h4 class="name" id="event:bccoreready">bccoreready</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        BC core ready event,this is the "main" function of BLE plugin based on BC.js .
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>document.addEventListener('bccoreready', onBCCoreReady, false);	function onBCCoreReady(){	var eventName = "org.bcsphere.ibeacon.ready";	var iBeaconManager = BC.iBeaconManager = new BC.IBeaconManager("org.bcsphere.ibeacon",eventName);	//plugin is ready, fire the event.	BC.bluetooth.dispatchEvent(eventName);}</code></pre>
+
+    
+</dd>
+
+        
             
 <dt>
     <h4 class="name" id="event:bcready">bcready</h4>
@@ -255,7 +339,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line66">line 66</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line41">line 41</a>
     </li></ul></dd>
     
     
@@ -280,394 +364,7 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>document.addEventListener('bcready', onBCReady, false);function onBluetoothReady(){	alert("BC is ready now! you can process UI event here");}</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:bluetoothstatechange">bluetoothstatechange</h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Triggered when bluetooth has been opened.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">object</span>
-
-
-            </li>
-        </ul>
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line40">line 40</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>document.addEventListener('bluetoothstatechange', onBluetoothStateChange, false);function onBluetoothStateChange(){	if(BC.bluetooth.isopen){		alert("bluetooth is opend!");	}else{		alert("bluetooth is closed!");	}}</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:deviceconnected">deviceconnected</h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Triggered when new advertising device has been connected.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">object</span>
-
-
-            </li>
-        </ul>
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line88">line 88</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>document.addEventListener('deviceconnected', onConnected, false);function onConnected(){var deviceID = arg.param;	alert("new device connected! it's device ID is: "+deviceID);var newDevice = BC.bluetooth.devices[deviceID];}</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:devicedisconnect">devicedisconnect</h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Triggered when any device has been disconnected.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">object</span>
-
-
-            </li>
-        </ul>
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-        <h5 class="subsection-title">Properties:</h5>
-        
-        <dl>
-
-<table class="props">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>deviceID</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The ID of this device which is disconnected</td>
-        </tr>
-	
-	
-	</tbody>
-</table></dl>
-        
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>document.addEventListener('devicedisconnect', onDeviceDisconnect, false);function onDeviceDisconnect(arg){var deviceID = arg.param	alert("device:"+ deviceID +" is disconnect!");}</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:newdevice">newdevice</h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Triggered when new advertising device has been found.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">object</span>
-
-
-            </li>
-        </ul>
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line76">line 76</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>document.addEventListener('newdevice', addNewDevice, false);function addNewDevice(){var deviceID = arg.param;	alert("new device added! it's device ID is: "+deviceID);var newDevice = BC.bluetooth.devices[deviceID];}</code></pre>
+    <pre class="prettyprint"><code>document.addEventListener('bcready', onBCReady, false);function onBCReady(){	alert("BC is ready now! you can process UI event here");}</code></pre>
 
     
 </dd>
@@ -684,13 +381,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Bluetooth.html">Bluetooth</a></li><li><a href="Characteristic.html">Characteristic</a></li><li><a href="DataValue.html">DataValue</a></li><li><a href="Descriptor.html">Descriptor</a></li><li><a href="Device.html">Device</a></li><li><a href="Service.html">Service</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:bcready">bcready</a></li><li><a href="global.html#event:bluetoothstatechange">bluetoothstatechange</a></li><li><a href="global.html#event:deviceconnected">deviceconnected</a></li><li><a href="global.html#event:devicedisconnect">devicedisconnect</a></li><li><a href="global.html#event:newdevice">newdevice</a></li></ul><h3>Namespaces</h3><ul><li><a href="BC.html">BC</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DEBUG">DEBUG</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="BC.FindMeProfile.html">FindMeProfile</a></li><li><a href="BC.ImmediateAlertService.html">ImmediateAlertService</a></li><li><a href="BC.LinkLossService.html">LinkLossService</a></li><li><a href="BC.ProximityProfile.html">ProximityProfile</a></li><li><a href="BC.SerialPortProfile.html">SerialPortProfile</a></li><li><a href="BC.SerialPortService.html">SerialPortService</a></li><li><a href="BC.TxPowerService.html">TxPowerService</a></li><li><a href="Bluetooth.html">Bluetooth</a></li><li><a href="Characteristic.html">Characteristic</a></li><li><a href="DataValue.html">DataValue</a></li><li><a href="Descriptor.html">Descriptor</a></li><li><a href="Device.html">Device</a></li><li><a href="Plugin.html">Plugin</a></li><li><a href="Profile.html">Profile</a></li><li><a href="Service.html">Service</a></li></ul><h3>Events</h3><ul><li><a href="Bluetooth.html#event:bluetoothstatechange">bluetoothstatechange</a></li><li><a href="Bluetooth.html#event:newdevice">newdevice</a></li><li><a href="Characteristic.html#event:oncharacteristicread">oncharacteristicread</a></li><li><a href="Characteristic.html#event:oncharacteristicwrite">oncharacteristicwrite</a></li><li><a href="Characteristic.html#event:onsubscribestatechange">onsubscribestatechange</a></li><li><a href="Descriptor.html#event:ondescriptorread">ondescriptorread</a></li><li><a href="Descriptor.html#event:ondescriptorwrite">ondescriptorwrite</a></li><li><a href="Device.html#event:deviceconnected">deviceconnected</a></li><li><a href="Device.html#event:devicedisconnected">devicedisconnected</a></li><li><a href="global.html#event:bccoreready">bccoreready</a></li><li><a href="global.html#event:bcready">bcready</a></li></ul><h3>Namespaces</h3><ul><li><a href="BC.html">BC</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DEBUG">DEBUG</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Tue Mar 04 2014 13:11:56 GMT+0800 (中国标准时间)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Fri Jul 04 2014 20:31:35 GMT+0800 (中国标准时间)
 </footer>
 
 <script> prettyPrint(); </script>

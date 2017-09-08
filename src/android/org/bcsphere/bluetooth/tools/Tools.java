@@ -34,12 +34,13 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Base64;
 
-import com.samsung.android.sdk.bt.gatt.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattCharacteristic;
 
 
 @SuppressLint({ "UseSparseArrays", "SimpleDateFormat", "DefaultLocale" })
 public class Tools {
 	public static final String ADVERTISEMENT_DATA = "advertisementData";
+	public static final String TYPE = "type";
 	public static final String BLUETOOTH_CLOSE = "bluetoothclose";
 	public static final String BLUETOOTH_OPEN = "bluetoothopen";
 	public static final String BLUETOOTH_STATE = "state";
@@ -61,7 +62,7 @@ public class Tools {
 	public static final String DESCRIPTOR_VALUE = "descriptorValue";
 	public static final String DESCRIPTOR_VALUE_TYPE = "descriptorValueType";
 	public static final String DESCRIPTORS = "descriptors";
-	public static final String DEVICE_ID = "deviceID";
+	public static final String DEVICE_ADDRESS = "deviceAddress";
 	public static final String DEVICE_NAME = "deviceName";
 	public static final String DISCONNECT = "disconnect";
 	public static final String ENABLE = "enable";
@@ -102,11 +103,12 @@ public class Tools {
 	public static final String SUCCESS = "success";
 	public static final String ERROR = "error";
 	public static final String MES = "mes";
-	public static final UUID NOTIFICATION_UUID = UUID
+	public static final String NEW_ADV_PACKET = "newadvpacket";
+	public static final UUID NOTIFICATION_UUID = java.util.UUID
 			.fromString("00002902-0000-1000-8000-00805f9b34fb");
-	public static final UUID GENERIC_ACCESS_UUID = UUID
+	public static final UUID GENERIC_ACCESS_UUID = java.util.UUID
 			.fromString("00001800-0000-1000-8000-00805f9b34fb");
-	public static final UUID GENERIC_ATTRIBUTE_UUID = UUID
+	public static final UUID GENERIC_ATTRIBUTE_UUID = java.util.UUID
 			.fromString("00001801-0000-1000-8000-00805f9b34fb");
 	public static final String LOCAL_NAME = "localName";
 	public static final String TXPOWER_LEVEL = "txPowerLevel";
@@ -115,10 +117,14 @@ public class Tools {
 	public static final String OVERFLOW_SERVICE_UUIDS = "overflowServiceUUIDs";
 	public static final String ISCONNECTABLE = "isConnectable";
 	public static final String SOLICITED_SERVICE_UUIDS = "solicitedServiceUUIDs";
+	public static final String SECURE = "secure";
+	public static final String UUID = "uuid";
+	public static final String NAME = "name";
 
 	private static final String REMOVE_BOND = "removeBond";
 	private static final String CREATE_BOND = "createBond";
 	private static final String UNKNOWN = "unknown";
+
 
 	private static HashMap<Integer, String> propertys = new HashMap<Integer, String>();
 	static {
@@ -601,6 +607,11 @@ public class Tools {
 	public static String encodeBase64(byte[] value) {
 		return Base64.encodeToString(value, Base64.NO_WRAP | Base64.NO_PADDING);
 	}
+	
+	public static byte[] decodeBase64(String value){
+		byte[] result = Base64.decode(value, Base64.DEFAULT);
+		return result;
+	}
 
 	public static void addProperty(JSONObject obj, String key, Object value) {
 		try {
@@ -667,21 +678,24 @@ public class Tools {
 		return result;
 	}
 	
-	public static String[] getDataFromArray(JSONArray jsonArray,String key){
-		if(jsonArray==null || jsonArray.length()==0){
-			return null;
-		}
-		int length = jsonArray.length();
-		String[] strArray = new String[length];
-		try {
-			for(int i=0;i<length;i++){
-				strArray[i] = jsonArray.getString(i);
-			}
-		} catch (JSONException e) {
+    public static String getDataFromArray(JSONArray jsonArray, String key) {
+        if (jsonArray == null || jsonArray.length() == 0) {
+            return null;
+        }
+        int length = jsonArray.length();
+        String result = null;
+        try {
+            for (int i = 0; i < length; i++) {
+                if (key.equals(jsonArray.getString(i))) {
+                    result = jsonArray.getString(i);
+                    break;
+                }
+            }
+        } catch (JSONException e) {
 
-		}
-		return strArray;
-	}
+        }
+        return result;
+    }
 	
 
 	public static String getData(JSONArray jsonArray, int objectIndex,
@@ -704,8 +718,8 @@ public class Tools {
 				UUID[] uuids = new UUID[getObjectFromArray(ary).getJSONArray(
 						SERVICE_UUIDS).length()];
 				for (int i = 0; i < uuids.length; i++) {
-					uuids[i] = (UUID) getObjectFromArray(ary).getJSONArray(
-							SERVICE_UUIDS).get(i);
+					String uuid = (String) getObjectFromArray(ary).getJSONArray(SERVICE_UUIDS).get(i);
+					uuids[i] = java.util.UUID.fromString(uuid);
 				}
 				return uuids;
 			}
@@ -840,18 +854,6 @@ public class Tools {
 		return new SimpleDateFormat(DATE_FORMATE).format(new Date());
 	}
 
-	public static byte[] parsingCodingFormat(String writeValue, String writeType) {
-		if (writeType.toLowerCase().equals("hex")) {
-			return hexStringToByte(writeValue);
-		}
-		if (writeType.toLowerCase().equals("ascii")) {
-			return ascIIStringToByte(writeValue);
-		}
-		if (writeType.toLowerCase().equals("unicode")) {
-			return writeValue.getBytes();
-		}
-		return null;
-	}
 	
 	public static final String bytesToHexString(byte[] bArray)
 	{

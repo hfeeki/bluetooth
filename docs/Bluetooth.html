@@ -110,6 +110,29 @@
 	
         <tr>
             
+                <td class="name"><code>services</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Service.html">Service</a>></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The services add by 'AddService' interface</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
                 <td class="name"><code>isopen</code></td>
             
             
@@ -154,7 +177,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line332">line 332</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line520">line 520</a>
     </li></ul></dd>
     
     
@@ -365,7 +388,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line503">line 503</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line641">line 641</a>
     </li></ul></dd>
     
     
@@ -390,7 +413,7 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>//Generates a characteristic instancevar permission = ["read","readEncrypted","readEncryptedMitm",					 "write","writeEncryptedMitm","writeEncrypted",					 "writeSigend","WriteSigendMitm"];			 var property = ["read","write","writeWithoutResponse",				   "broadcast","notify","indicate","authenticatedSignedWrites",				   "extendedProperties","notifyEncryptionRequired","indicateEncryptionRequired"];var character1 = BC.Bluetooth.CreateCharacteristic("0000ffe1-0000-1000-8000-00805f9b34fb","01","Hex",property,permission);//Generates a service instance.var service = BC.Bluetooth.CreateService("0000ffe0-0000-1000-8000-00805f9b34fb");//Adds a characteristic to a service. service.addCharacteristic(character1);//Adds a service to the smart phone.BC.Bluetooth.AddService(service,app.addServiceSusscess,app.addServiceError);</code></pre>
+    <pre class="prettyprint"><code>//Generates a characteristic instancevar permission = ["read","readEncrypted","readEncryptedMitm",					 "write","writeEncryptedMitm","writeEncrypted",					 "writeSigend","WriteSigendMitm"];			 var property = ["read","write","writeWithoutResponse",				   "broadcast","notify","indicate","authenticatedSignedWrites",				   "extendedProperties","notifyEncryptionRequired","indicateEncryptionRequired"];var service = new BC.Service({uuid:"ffe0"});var character1 = new BC.Characteristic({uuid:"ffe1",value:"01",type:"Hex",property:property,permission:permission});character1.addEventListener("onsubscribestatechange",function(s){alert("OBJECT EVENT!! onsubscribestatechange : (" + s.uuid + ") state:" + s.isSubscribed);});character1.addEventListener("oncharacteristicread",function(s){alert("OBJECT EVENT!! oncharacteristicread : (" + s.uuid + ")");});character1.addEventListener("oncharacteristicwrite",function(s){alert("OBJECT EVENT!! oncharacteristicwrite : (" + s.uuid + ") writeValue:" + s.writeValue.getHexString());});var descriptor1 = new BC.Descriptor({uuid:"2901",value:"00",type:"Hex",permission:permission});descriptor1.addEventListener("ondescriptorread",function(s){alert("OBJECT EVENT!! ondescriptorread : " + s.uuid);});//Adds a characteristic to a service. service.addCharacteristic(character1);character1.addDescriptor(descriptor1);//Adds a service to the smart phone.BC.Bluetooth.AddService(service,app.addServiceSusscess,app.addServiceError);</code></pre>
 
     
 </dd>
@@ -398,7 +421,7 @@
         
             
 <dt>
-    <h4 class="name" id="CreateCharacteristic"><span class="type-signature">&lt;static> </span>CreateCharacteristic<span class="signature">(uuid, value, type, property, permission, <span class="optional">writecallback</span>, <span class="optional">readcallback</span>)</span><span class="type-signature"> &rarr; {<a href="Characteristic.html">Characteristic</a>}</span></h4>
+    <h4 class="name" id="CloseBluetooth"><span class="type-signature">&lt;static> </span>CloseBluetooth<span class="signature">(<span class="optional">successCallback</span>, <span class="optional">errorCallback</span>)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -438,168 +461,13 @@
 	
         <tr>
             
-                <td class="name"><code>uuid</code></td>
+                <td class="name"><code>successCallback</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">Characteristic UUID (should be 128bit such as : '0000ffe0-0000-1000-8000-00805f9b34fb')</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">The default value of this characteristic</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">The type of the value,include 'Hex'/'ASCII'/'unicode'</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>property</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">The property of this characteristic</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>permission</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">The permission of this characteristic</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>writecallback</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
+<span class="param-type">function</span>
 
 
             
@@ -619,20 +487,20 @@
             
             
             
-            <td class="description last">The name of write callback function</td>
+            <td class="description last">Success callback</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>readcallback</code></td>
+                <td class="name"><code>errorCallback</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">function</span>
 
 
             
@@ -652,7 +520,7 @@
             
             
             
-            <td class="description last">The name of read callback function</td>
+            <td class="description last">Error callback</td>
         </tr>
 	
 	
@@ -683,7 +551,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line475">line 475</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line609">line 609</a>
     </li></ul></dd>
     
     
@@ -704,437 +572,11 @@
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An instance of Characteristic
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Characteristic.html">Characteristic</a></span>
-
-
-	</dd>
-</dl>
-
-        
     
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>//Generates a characteristic instance.var permission = ["write","writeEncrypted"];			 var property = ["read","write"];var character1 = BC.Bluetooth.CreateCharacteristic("0000ffe1-0000-1000-8000-00805f9b34fb","01","Hex",property,permission);//Generates a service instance.var service = BC.Bluetooth.CreateService("0000ffe0-0000-1000-8000-00805f9b34fb");//Adds a characteristic to service.service.addCharacteristic(character1);//Adds a service to smart phoneBC.Bluetooth.AddService(service,app.addServiceSusscess,app.addServiceError);</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="CreateDescriptor"><span class="type-signature">&lt;static> </span>CreateDescriptor<span class="signature">(uuid, value, type, permission)</span><span class="type-signature"> &rarr; {<a href="Descriptor.html">Descriptor</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>uuid</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Descriptor UUID (should be 128bit such as : '00002901-0000-1000-8000-00805f9b34fb')</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The default value of this descriptor</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The type of the value,include 'Hex'/'ASCII'/'unicode'</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>permission</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">The permission of this descriptor</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line447">line 447</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An instance of Descriptor
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Descriptor.html">Descriptor</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>//Generates a descriptor instance.var permission = ["write"];var property = ["write","read"];var descriptor1 = BC.Bluetooth.CreateDescriptor("00002901-0000-1000-8000-00805f9b34fb","00","Hex",permission);//Generates a characteristic instance.var character1 = BC.Bluetooth.CreateCharacteristic("0000ffe1-0000-1000-8000-00805f9b34fb","01","Hex",property,permission);//Adds descriptor to characteristiccharacter1.addDescriptor(descriptor1);//Generates a service instance.var service = BC.Bluetooth.CreateService("0000ffe0-0000-1000-8000-00805f9b34fb");//Adds a characteristic to service.service.addCharacteristic(character1);//Adds a service to smart phone.BC.Bluetooth.AddService(service,app.addServiceSusscess,app.addServiceError);</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="CreateService"><span class="type-signature">&lt;static> </span>CreateService<span class="signature">(uuid, <span class="optional">type</span>)</span><span class="type-signature"> &rarr; {<a href="Service.html">Service</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Argument</th>
-		
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>uuid</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">Service UUID (should be 128bit such as : '0000ffe0-0000-1000-8000-00805f9b34fb')</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-            
-            <td class="description last">Is major service(0) or not(!0)</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line408">line 408</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An instance of Service
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Service.html">Service</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>//Generates a service instance.var service = BC.Bluetooth.CreateService("0000ffe0-0000-1000-8000-00805f9b34fb");//Adds a service to smart phone.BC.Bluetooth.AddService(service,app.addServiceSusscess,app.addServiceError);</code></pre>
+    <pre class="prettyprint"><code>//Close Bluetooth.BC.Bluetooth.CloseBluetooth(function(){alert("bluetooth closed!");},function(){alert("bluetooth close error!");});</code></pre>
 
     
 </dd>
@@ -1274,7 +716,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line600">line 600</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line802">line 802</a>
     </li></ul></dd>
     
     
@@ -1439,7 +881,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line589">line 589</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line791">line 791</a>
     </li></ul></dd>
     
     
@@ -1602,7 +1044,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line393">line 393</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line596">line 596</a>
     </li></ul></dd>
     
     
@@ -1614,6 +1056,11 @@
 </dl>
 
     
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="Bluetooth.html#event:bluetoothstatechange">Bluetooth#event:bluetoothstatechange</a></li>
+    </ul>
     
 
     
@@ -1800,7 +1247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line523">line 523</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line666">line 666</a>
     </li></ul></dd>
     
     
@@ -1833,7 +1280,7 @@
         
             
 <dt>
-    <h4 class="name" id="StartScan"><span class="type-signature">&lt;static> </span>StartScan<span class="signature">(<span class="optional">uuids</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="RFCOMMListen"><span class="type-signature">&lt;static> </span>RFCOMMListen<span class="signature">(name, uuid, secure)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1841,7 +1288,320 @@
     
     
     <div class="description">
-        Starts a scan for Bluetooth LE devices, looking for devices with given services.
+        Starts a RFCOMM listen.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Name for the SDP record when creating server socket</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>uuid</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Unique UUID for your application</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>secure</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">use secure connect or not</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line739">line 739</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>BC.Bluetooth.RFCOMMListen("appName","7A9C3B55-78D0-44A7-A94E-A93E3FE118CE",true);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="RFCOMMUnListen"><span class="type-signature">&lt;static> </span>RFCOMMUnListen<span class="signature">(name, uuid)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Stops a RFCOMM listen.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Name for the SDP record when creating server socket</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>uuid</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Unique UUID for your application</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line751">line 751</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>BC.Bluetooth.RFCOMMUnListen("appname","your listen uuid");</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="StartScan"><span class="type-signature">&lt;static> </span>StartScan<span class="signature">(<span class="optional">type</span>, <span class="optional">uuids</span>)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Starts a scan for Bluetooth LE OR Classical(only in android platform) devices.
     </div>
     
 
@@ -1877,6 +1637,39 @@
 	
         <tr>
             
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">Is LE scan or classical scan, please input "LE" OR "Classical", if you want use default scan strategy, just ignore this param.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
                 <td class="name"><code>uuids</code></td>
             
             
@@ -1903,7 +1696,7 @@
             
             
             
-            <td class="description last">Array of services to look for. If null or [], it will scan all devices</td>
+            <td class="description last">Array of services to look for. If null or [], it will scan all devices(just support BLE service UUID)</td>
         </tr>
 	
 	
@@ -1934,7 +1727,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line533">line 533</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line687">line 687</a>
     </li></ul></dd>
     
     
@@ -1946,6 +1739,11 @@
 </dl>
 
     
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="Bluetooth.html#event:newdevice">Bluetooth#event:newdevice</a></li>
+    </ul>
     
 
     
@@ -1959,7 +1757,7 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>BC.Bluetooth.StartScan();</code></pre>
+    <pre class="prettyprint"><code>BC.Bluetooth.StartScan();//start hybrid scan,in android platform the default scan strategy is scan for BLE device 5s first,then scan for classical device 12s,and restart the hybrid scan untill the BC.Bluetooth.StopScan be called. in IOS platform only start the LE scan.BC.Bluetooth.StartScan(null,["00000000-0000-0000-0000-000000000000"]);//start hybrid scan with LE service UUID.BC.Bluetooth.StartScan("LE"); //just start the LE scanBC.Bluetooth.StartScan("Classical"); //just start the classical scan in android platform, if the platform is IOS,call this method will nothing happen.</code></pre>
 
     
 </dd>
@@ -1975,7 +1773,7 @@
     
     
     <div class="description">
-        Stops a scanning for BLE Peripherals.
+        Stops a scanning.
     </div>
     
 
@@ -2008,7 +1806,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bc.js.html">bc.js</a>, <a href="bc.js.html#line578">line 578</a>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line771">line 771</a>
     </li></ul></dd>
     
     
@@ -2044,6 +1842,178 @@
     
     
     
+        <h3 class="subsection-title">Events</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="event:bluetoothstatechange">bluetoothstatechange</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Triggered when the device bluetooth state has been change.<b>Please Note:</b> this event should be listen after the 'bcready' event has been fired.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line486">line 486</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>BC.bluetooth.addEventListener('bluetoothstatechange', onBluetoothStateChange);function onBluetoothStateChange(){	if(BC.bluetooth.isopen){		alert("bluetooth is opend!");	}else{		alert("bluetooth is closed!");	}}</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:newdevice">newdevice</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Triggered when new advertising device has been found.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bc.js.html">org.bcsphere/bc.js</a>, <a href="bc.js.html#line500">line 500</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>BC.bluetooth.addEventListener("newdevice",addNewDevice);function addNewDevice(s){	var newDevice = s.target;	alert("new device be found! it's device Address is: " + newDevice.deviceAddress);	var newDevice = BC.bluetooth.devices[deviceAddress];}</code></pre>
+
+    
+</dd>
+
+        </dl>
+    
 </article>
 
 </section>  
@@ -2054,13 +2024,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Bluetooth.html">Bluetooth</a></li><li><a href="Characteristic.html">Characteristic</a></li><li><a href="DataValue.html">DataValue</a></li><li><a href="Descriptor.html">Descriptor</a></li><li><a href="Device.html">Device</a></li><li><a href="Service.html">Service</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:bcready">bcready</a></li><li><a href="global.html#event:bluetoothstatechange">bluetoothstatechange</a></li><li><a href="global.html#event:deviceconnected">deviceconnected</a></li><li><a href="global.html#event:devicedisconnect">devicedisconnect</a></li><li><a href="global.html#event:newdevice">newdevice</a></li></ul><h3>Namespaces</h3><ul><li><a href="BC.html">BC</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DEBUG">DEBUG</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="BC.FindMeProfile.html">FindMeProfile</a></li><li><a href="BC.ImmediateAlertService.html">ImmediateAlertService</a></li><li><a href="BC.LinkLossService.html">LinkLossService</a></li><li><a href="BC.ProximityProfile.html">ProximityProfile</a></li><li><a href="BC.SerialPortProfile.html">SerialPortProfile</a></li><li><a href="BC.SerialPortService.html">SerialPortService</a></li><li><a href="BC.TxPowerService.html">TxPowerService</a></li><li><a href="Bluetooth.html">Bluetooth</a></li><li><a href="Characteristic.html">Characteristic</a></li><li><a href="DataValue.html">DataValue</a></li><li><a href="Descriptor.html">Descriptor</a></li><li><a href="Device.html">Device</a></li><li><a href="Plugin.html">Plugin</a></li><li><a href="Profile.html">Profile</a></li><li><a href="Service.html">Service</a></li></ul><h3>Events</h3><ul><li><a href="Bluetooth.html#event:bluetoothstatechange">bluetoothstatechange</a></li><li><a href="Bluetooth.html#event:newdevice">newdevice</a></li><li><a href="Characteristic.html#event:oncharacteristicread">oncharacteristicread</a></li><li><a href="Characteristic.html#event:oncharacteristicwrite">oncharacteristicwrite</a></li><li><a href="Characteristic.html#event:onsubscribestatechange">onsubscribestatechange</a></li><li><a href="Descriptor.html#event:ondescriptorread">ondescriptorread</a></li><li><a href="Descriptor.html#event:ondescriptorwrite">ondescriptorwrite</a></li><li><a href="Device.html#event:deviceconnected">deviceconnected</a></li><li><a href="Device.html#event:devicedisconnected">devicedisconnected</a></li><li><a href="global.html#event:bccoreready">bccoreready</a></li><li><a href="global.html#event:bcready">bcready</a></li></ul><h3>Namespaces</h3><ul><li><a href="BC.html">BC</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DEBUG">DEBUG</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Tue Mar 04 2014 13:11:56 GMT+0800 (中国标准时间)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Fri Jul 04 2014 20:31:35 GMT+0800 (中国标准时间)
 </footer>
 
 <script> prettyPrint(); </script>

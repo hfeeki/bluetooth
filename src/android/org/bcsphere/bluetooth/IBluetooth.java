@@ -24,14 +24,10 @@ import android.content.Context;
 public interface IBluetooth {
 	void setContext(Context context);
 	void startScan(JSONArray json,CallbackContext callbackContext);
-	void getScanData(JSONArray json,CallbackContext callbackContext) ;
 	void stopScan(JSONArray json,CallbackContext callbackContext);
 	void connect(JSONArray json,CallbackContext callbackContext) ;
 	void disconnect(JSONArray json,CallbackContext callbackContext) ;
 	void getConnectedDevices(JSONArray json ,CallbackContext callbackContext) ;
-	void getPairedDevices(JSONArray json,CallbackContext callbackContext)  ;
-	void createPair(JSONArray json, CallbackContext callbackContext)  ;
-	void removePair(JSONArray json , CallbackContext callbackContext) ;
 	void writeValue(JSONArray json,CallbackContext callbackContext) ;
 	void readValue(JSONArray json,CallbackContext callbackContext)  ;
 	void setNotification(JSONArray json,CallbackContext callbackContext)  ;
@@ -42,8 +38,5 @@ public interface IBluetooth {
 	void getServices(JSONArray json, CallbackContext callbackContext)  ;
 	void getCharacteristics(JSONArray json, CallbackContext callbackContext)  ;
 	void getDescriptors(JSONArray json, CallbackContext callbackContext)  ;
-	void openBluetooth(JSONArray json, CallbackContext callbackContext);
-	void getBluetoothState(JSONArray json, CallbackContext callbackContext);
-	void addEventListener(JSONArray json, CallbackContext callbackContext)  ;
-	
+	void addEventListener(JSONArray json, CallbackContext callbackContext);
 }
